@@ -16,7 +16,7 @@ class OrderFormStepper extends StatelessWidget {
     return BlocBuilder<OrderFormBloc, OrderFormState>(
       builder: (context, state) {
         return FoodyStepper(
-          lineLength: 20,
+          // lineLength: 20,
           steps: [
             PhosphorIconsRegular.picnicTable,
             PhosphorIconsRegular.forkKnife,
@@ -44,7 +44,6 @@ class OrderFormStepper extends StatelessWidget {
               ),
             ),
             PhosphorIconsRegular.receipt,
-            PhosphorIconsRegular.creditCard,
           ],
           activeStep: state.activeStep,
           onStepChanged: (index) {

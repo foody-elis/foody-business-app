@@ -4,6 +4,7 @@ import 'package:foody_business_app/dto/response/auth_response_dto.dart';
 import 'package:retrofit/http.dart';
 
 import '../../dto/request/user_registration_request_dto.dart';
+import '../../dto/response/employee_user_response_dto.dart';
 import '../../dto/response/user_response_dto.dart';
 
 part '../generated/interface/auth_api_repository.g.dart';
@@ -24,5 +25,5 @@ abstract class AuthApiRepository {
   Future<AuthResponseDto> login(@Body() UserLoginRequestDto _);
 
   @GET('/user')
-  Future<UserResponseDto> getAuthenticatedUser();
+  Future<EmployeeUserResponseDto> getAuthenticatedUser();
 }

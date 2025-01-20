@@ -3,6 +3,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foody_business_app/dto/request/user_login_request_dto.dart';
 import 'package:foody_business_app/dto/response/auth_response_dto.dart';
+import 'package:foody_business_app/dto/response/employee_user_response_dto.dart';
 import 'package:foody_business_app/repository/interface/user_repository.dart';
 import 'package:foody_business_app/routing/constants.dart';
 import 'package:foody_business_app/utils/get_foody_dio.dart';
@@ -48,6 +49,17 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     return isValid;
   }
 
+  Future<int?> _getRestaurantId() async {
+    int? result;
+
+    await callApi<EmployeeUserResponseDto>(
+      api: foodyApiRepository.auth.getAuthenticatedUser,
+      onComplete: (response) => result = response.employerRestaurantId,
+    );
+
+    return result;
+  }
+
   void _onLoginSubmit(LoginSubmit event, Emitter<SignInState> emit) async {
     if (_isFormValid(emit)) {
       foodyApiRepository.dio = getFoodyDio(); // reset dio in case of 498
@@ -59,7 +71,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           email: state.email,
           password: state.password,
         )),
-        onComplete: (response) {
+        onComplete: (response) async {
           final user = User(
             jwt: response.accessToken,
             role: JwtDecoder.decode(response.accessToken)["role"],
@@ -71,14 +83,26 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
             return;
           }
 
-          userRepository.add(user);
           foodyApiRepository.dio = getFoodyDio(
               tokenInterceptor: TokenInterceptor(
             token: response.accessToken,
             userRepository: userRepository,
           ));
+
+          final restaurantId = await _getRestaurantId();
+
+          if (restaurantId == null) {
+            emit(state.copyWith(apiError: "Credenziali errate"));
+            emit(state.copyWith(apiError: ""));
+            return;
+          }
+
+          user.restaurantId = restaurantId;
+
+          userRepository.add(user);
+
           _navigationService.resetToScreen(
-              user.role == Role.WAITER ? ordersRoute : orderFormRoute);
+              user.role == Role.WAITER ? orderFormRoute : ordersRoute);
         },
         errorToEmit: (msg) => emit(state.copyWith(apiError: msg)),
       );

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foody_business_app/bloc/order_form/order_form_bloc.dart';
 import 'package:foody_business_app/bloc/order_form/order_form_state.dart';
+import 'package:foody_business_app/routing/constants.dart';
 import 'package:foody_business_app/screens/order_form/cart_step.dart';
 import 'package:foody_business_app/screens/order_form/dishes_step.dart';
-import 'package:foody_business_app/screens/order_form/pay_step.dart';
 import 'package:foody_business_app/screens/order_form/stepper.dart';
 import 'package:foody_business_app/screens/order_form/summary_step.dart';
 import 'package:foody_business_app/screens/order_form/table_code_step.dart';
@@ -41,19 +41,46 @@ class OrderForm extends StatelessWidget {
               surfaceTintColor: Theme.of(context).colorScheme.surfaceBright,
               centerTitle: true,
               title: const Text("Ordina"),
-              leading: IconButton(
-                onPressed: () =>
-                    context.read<OrderFormBloc>().add(PreviousStep()),
-                icon: const Icon(PhosphorIconsLight.arrowLeft),
-              ),
+              leading: state.activeStep > 0
+                  ? IconButton(
+                      onPressed: () =>
+                          context.read<OrderFormBloc>().add(PreviousStep()),
+                      icon: const Icon(PhosphorIconsLight.arrowLeft),
+                    )
+                  : null,
               actions: [
+                if (state.activeStep > 0)
+                  IconButton(
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text("Annulla ordine"),
+                        content: const Text(
+                          "Sei sicuro di voler annullare il tuo ordine?",
+                        ),
+                        actions: [
+                          TextButton(
+                            child: const Text("No"),
+                            onPressed: () => NavigationService().goBack(),
+                          ),
+                          TextButton(
+                            child: const Text("Sì"),
+                            onPressed: () => {
+                              NavigationService().resetToScreen(orderFormRoute)
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    icon: const Icon(PhosphorIconsLight.x),
+                  ),
                 IconButton(
                   onPressed: () => showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                      title: const Text("Annulla ordine"),
+                      title: const Text("Logout"),
                       content: const Text(
-                        "Sei sicuro di voler annullare il tuo ordine?",
+                        "Sei sicuro di voler uscire dal tuo account Foody?",
                       ),
                       actions: [
                         TextButton(
@@ -61,16 +88,14 @@ class OrderForm extends StatelessWidget {
                           onPressed: () => NavigationService().goBack(),
                         ),
                         TextButton(
-                          child: const Text("Sì"),
-                          onPressed: () => {
-                            NavigationService().goBack(),
-                            NavigationService().goBack(),
-                          },
+                          child: const Text("Esci"),
+                          onPressed: () =>
+                              context.read<OrderFormBloc>().add(Logout()),
                         ),
                       ],
                     ),
                   ),
-                  icon: const Icon(PhosphorIconsLight.x),
+                  icon: const Icon(PhosphorIconsLight.signOut),
                 )
               ],
             ),
@@ -97,7 +122,6 @@ class OrderForm extends StatelessWidget {
                         1 => const OrderFormDishesStep(),
                         2 => const OrderFormCartStep(),
                         3 => const OrderFormSummaryStep(),
-                        4 => const OrderFormPayStep(),
                         _ => null,
                       },
                     ),
@@ -117,7 +141,6 @@ class OrderForm extends StatelessWidget {
                           context.read<OrderFormBloc>().add(OrderCartSubmit()),
                       3 => () =>
                           context.read<OrderFormBloc>().add(SummarySubmit()),
-                      4 => () => context.read<OrderFormBloc>().add(Pay()),
                       _ => null
                     },
                     child: const Icon(PhosphorIconsRegular.paperPlaneRight),

@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:4998382889734115855",
-      "lastPropertyId": "3:1099290333633461769",
+      "lastPropertyId": "4:180531771022680735",
       "name": "User",
       "properties": [
         {
@@ -23,6 +23,11 @@
           "id": "3:1099290333633461769",
           "name": "dbRole",
           "type": 9
+        },
+        {
+          "id": "4:180531771022680735",
+          "name": "restaurantId",
+          "type": 6
         }
       ],
       "relations": []

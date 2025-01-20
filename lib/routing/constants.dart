@@ -3,7 +3,7 @@
 // const String welcomeRoute = '/';
 const String signInRoute = 'sign_in';
 const String orderFormRoute = 'order_form';
-const String orderPaidRoute = 'order_paid';
+const String orderCompletedRoute = 'order_completed';
 const String ordersRoute = 'orders';
 
 // const String authenticatedRoute = 'home';

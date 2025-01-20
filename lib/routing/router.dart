@@ -5,7 +5,11 @@ import 'package:foody_business_app/bloc/sign_in/sign_in_bloc.dart';
 import 'package:foody_business_app/repository/interface/foody_api_repository.dart';
 import 'package:foody_business_app/repository/interface/user_repository.dart';
 import 'package:foody_business_app/routing/constants.dart';
+import 'package:foody_business_app/screens/order_completed.dart';
 import 'package:foody_business_app/screens/sign_in.dart';
+
+import '../bloc/order_form/order_form_bloc.dart';
+import '../screens/order_form/order_form.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -21,6 +25,20 @@ class Router {
             ),
             child: const SignIn(),
           ),
+        );
+      case orderFormRoute:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider<OrderFormBloc>(
+            create: (context) => OrderFormBloc(
+              foodyApiRepository: context.read<FoodyApiRepository>(),
+              userRepository: context.read<UserRepository>(),
+            ),
+            child: const OrderForm(),
+          ),
+        );
+      case orderCompletedRoute:
+        return CupertinoPageRoute(
+          builder: (_) => OrderCompleted(order: arguments!["order"]),
         );
       default:
         return CupertinoPageRoute(

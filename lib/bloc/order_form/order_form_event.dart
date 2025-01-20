@@ -8,6 +8,8 @@ class OrderFormEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class Logout extends OrderFormEvent {}
+
 class TableCodeSubmit extends OrderFormEvent {}
 
 class OrderDishesSubmit extends OrderFormEvent {}
@@ -19,8 +21,6 @@ class SummarySubmit extends OrderFormEvent {}
 class FetchDishes extends OrderFormEvent {}
 
 class PreviousStep extends OrderFormEvent {}
-
-class Pay extends OrderFormEvent {}
 
 class TableCodeChanged extends OrderFormEvent {
   const TableCodeChanged({required this.tableCode});

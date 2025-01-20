@@ -140,8 +140,7 @@ class OrderFormSummaryStep extends HookWidget {
                 child: SafeArea(
                   top: false,
                   child: FoodyButton(
-                    label:
-                        "Vai al pagamento (${totalAmount.toStringAsFixed(2)} €)",
+                    label: "Conferma ordine",
                     height: 50,
                     onPressed: () =>
                         context.read<OrderFormBloc>().add(SummarySubmit()),

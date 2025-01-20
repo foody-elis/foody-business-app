@@ -4,7 +4,7 @@ import 'package:foody_business_app/bloc/order_form/order_form_event.dart';
 import 'package:foody_business_app/bloc/order_form/order_form_state.dart';
 import 'package:foody_business_app/dto/request/order_request_dto.dart';
 import 'package:foody_business_app/dto/response/order_response_dto.dart';
-import 'package:foody_business_app/dto/response/restaurant_response_dto.dart';
+import 'package:foody_business_app/repository/interface/user_repository.dart';
 import 'package:foody_business_app/routing/constants.dart';
 import 'package:foody_business_app/routing/navigation_service.dart';
 
@@ -14,14 +14,14 @@ import '../../utils/call_api.dart';
 
 class OrderFormBloc extends Bloc<OrderFormEvent, OrderFormState> {
   final FoodyApiRepository foodyApiRepository;
-  final RestaurantResponseDto restaurant;
+  final UserRepository userRepository;
   final NavigationService _navigationService = NavigationService();
 
-  OrderResponseDto? _orderCreated;
+  late final int _restaurantId;
 
   OrderFormBloc({
     required this.foodyApiRepository,
-    required this.restaurant,
+    required this.userRepository,
   }) : super(OrderFormState.initial()) {
     on<SummarySubmit>(_onSummarySubmit, transformer: droppable());
     on<FetchDishes>(_onFetchDishes, transformer: droppable());
@@ -33,14 +33,21 @@ class OrderFormBloc extends Bloc<OrderFormEvent, OrderFormState> {
     on<RemoveOrderDish>(_onRemoveOrderDish);
     on<StepChanged>(_onStepChanged);
     on<PreviousStep>(_onPreviousStep);
-    on<Pay>(_onPay);
+    on<Logout>(_onLogout);
+
+    _restaurantId = userRepository.get()!.restaurantId!;
+  }
+
+  void _onLogout(Logout event, Emitter<OrderFormState> emit) {
+    userRepository.removeAll();
+    NavigationService().resetToScreen(signInRoute);
   }
 
   void _onFetchDishes(FetchDishes event, Emitter<OrderFormState> emit) async {
     emit(state.copyWith(isLoading: true));
 
     await callApi<List<DishResponseDto>>(
-      api: () => foodyApiRepository.dishes.getAllByRestaurant(restaurant.id),
+      api: () => foodyApiRepository.dishes.getAllByRestaurant(_restaurantId),
       onComplete: (dishes) => emit(state.copyWith(
         dishes: dishes,
         isLoading: false,
@@ -58,14 +65,13 @@ class OrderFormBloc extends Bloc<OrderFormEvent, OrderFormState> {
         OrderRequestDto(
           tableCode: state.tableCode,
           orderDishes: state.orderDishes.toList(),
-          restaurantId: restaurant.id,
+          restaurantId: _restaurantId,
         ),
       ),
-      onComplete: (order) {
-        _orderCreated = order;
-        print(_orderCreated);
-        emit(state.copyWith(activeStep: 4));
-      },
+      onComplete: (order) => _navigationService.replaceScreen(
+        orderCompletedRoute,
+        arguments: {"order": order},
+      ),
       errorToEmit: (msg) => emit(state.copyWith(apiError: msg)),
     );
 
@@ -156,12 +162,5 @@ class OrderFormBloc extends Bloc<OrderFormEvent, OrderFormState> {
     } else {
       emit(state.copyWith(activeStep: 3));
     }
-  }
-
-  void _onPay(Pay event, Emitter<OrderFormState> emit) async {
-    _navigationService.replaceScreen(
-      orderPaidRoute,
-      arguments: {"order": _orderCreated},
-    );
   }
 }
