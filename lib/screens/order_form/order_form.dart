@@ -95,7 +95,7 @@ class OrderForm extends StatelessWidget {
                       ],
                     ),
                   ),
-                  icon: const Icon(PhosphorIconsLight.signOut),
+                  icon: const Icon(PhosphorIconsRegular.signOut),
                 )
               ],
             ),

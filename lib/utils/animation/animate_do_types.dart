@@ -1,0 +1,4 @@
+enum AnimateDoDirection {
+  forward,
+  backward,
+}

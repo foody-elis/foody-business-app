@@ -6,6 +6,8 @@ part '../mapper/response/order_dish_response_dto.g.dart';
 class OrderDishResponseDto {
   const OrderDishResponseDto({
     required this.dishId,
+    required this.dishName,
+    required this.price,
     required this.quantity,
   });
 
@@ -13,6 +15,8 @@ class OrderDishResponseDto {
       _$OrderDishResponseDtoFromJson(json);
 
   final int dishId;
+  final String dishName;
+  final double price;
   final int quantity;
 
   Map<String, dynamic> toJson() => _$OrderDishResponseDtoToJson(this);

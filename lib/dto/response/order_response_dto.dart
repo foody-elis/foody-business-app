@@ -15,6 +15,7 @@ class OrderResponseDto {
     required this.buyer,
     required this.restaurant,
     required this.status,
+    required this.createdAt,
   });
 
   factory OrderResponseDto.fromJson(Map<String, dynamic> json) =>
@@ -26,6 +27,27 @@ class OrderResponseDto {
   final UserResponseDto buyer;
   final RestaurantResponseDto restaurant;
   final OrderStatus status;
+  final DateTime createdAt;
 
   Map<String, dynamic> toJson() => _$OrderResponseDtoToJson(this);
+
+  OrderResponseDto copyWith({
+    int? id,
+    String? tableCode,
+    List<OrderDishResponseDto>? orderDishes,
+    UserResponseDto? buyer,
+    RestaurantResponseDto? restaurant,
+    OrderStatus? status,
+    DateTime? createdAt,
+  }) {
+    return OrderResponseDto(
+      id: id ?? this.id,
+      tableCode: tableCode ?? this.tableCode,
+      orderDishes: orderDishes ?? this.orderDishes,
+      buyer: buyer ?? this.buyer,
+      restaurant: restaurant ?? this.restaurant,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }

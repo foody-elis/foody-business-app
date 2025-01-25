@@ -54,6 +54,7 @@ dependencies:
   cached_network_image: ^3.4.1
   easy_stepper: ^0.8.5+1
   badges: ^3.1.2
+  stomp_dart_client: ^2.1.1
 
 dev_dependencies:
   flutter_test:

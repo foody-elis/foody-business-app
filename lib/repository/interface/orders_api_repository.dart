@@ -21,4 +21,13 @@ abstract class OrdersApiRepository {
 
   @PATCH('/pay/{id}')
   Future<OrderResponseDto> pay(@Path() int id);
+
+  @PATCH('/prepare/{id}')
+  Future<OrderResponseDto> prepare(@Path() int id);
+
+  @PATCH('/complete/{id}')
+  Future<OrderResponseDto> complete(@Path() int id);
+
+  @GET('/restaurant/{id}/in-progress')
+  Future<List<OrderResponseDto>> getCurrentByRestaurant(@Path() int id);
 }
