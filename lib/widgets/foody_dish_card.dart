@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foody_api_client/dto/response/dish_response_dto.dart';
 import 'package:foody_business_app/bloc/order_form/order_form_bloc.dart';
-import 'package:foody_business_app/dto/response/dish_response_dto.dart';
-import 'package:foody_business_app/utils/show_foody_modal_bottom_sheet.dart';
 import 'package:foody_business_app/widgets/foody_rating.dart';
+import 'package:foody_business_app/widgets/utils/show_foody_modal_bottom_sheet.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'foody_circular_image.dart';

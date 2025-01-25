@@ -1,6 +1,7 @@
+import 'package:foody_api_client/utils/roles.dart';
+
 import '../../main.dart' show objectBox;
 import '../../models/user.dart';
-import '../../utils/roles.dart';
 import '../interface/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {

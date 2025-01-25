@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foody_api_client/dto/response/order_response_dto.dart';
+import 'package:foody_api_client/utils/order_status.dart';
 import 'package:foody_business_app/bloc/orders/orders_bloc.dart';
 import 'package:foody_business_app/bloc/orders/orders_event.dart';
-import 'package:foody_business_app/dto/response/order_response_dto.dart';
 import 'package:foody_business_app/routing/navigation_service.dart';
 import 'package:foody_business_app/screens/orders/all_order_dishes.dart';
 import 'package:foody_business_app/screens/orders/show_order_action.dart';
-import 'package:foody_business_app/utils/show_foody_modal_bottom_sheet.dart';
+import 'package:foody_business_app/widgets/utils/show_foody_modal_bottom_sheet.dart';
 import 'package:intl/intl.dart';
 
-import '../utils/order_status.dart';
 import 'foody_circular_image.dart';
 
 class FoodyOrderCard extends StatelessWidget {

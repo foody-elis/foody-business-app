@@ -8,7 +8,7 @@ import 'package:foody_business_app/screens/order_form/dishes_step.dart';
 import 'package:foody_business_app/screens/order_form/stepper.dart';
 import 'package:foody_business_app/screens/order_form/summary_step.dart';
 import 'package:foody_business_app/screens/order_form/table_code_step.dart';
-import 'package:foody_business_app/utils/show_snackbar.dart';
+import 'package:foody_business_app/widgets/utils/show_foody_snackbar.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/foody/foody_bloc.dart';
@@ -24,7 +24,7 @@ class OrderForm extends StatelessWidget {
     return BlocConsumer<OrderFormBloc, OrderFormState>(
       listener: (context, state) {
         if (state.apiError != "") {
-          showSnackBar(context: context, msg: state.apiError);
+          showFoodySnackBar(context: context, msg: state.apiError);
         }
 
         context

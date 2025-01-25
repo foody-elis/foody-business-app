@@ -1,29 +1,29 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foody_business_app/dto/request/user_login_request_dto.dart';
-import 'package:foody_business_app/dto/response/auth_response_dto.dart';
-import 'package:foody_business_app/dto/response/employee_user_response_dto.dart';
+import 'package:foody_api_client/dto/request/user_login_request_dto.dart';
+import 'package:foody_api_client/dto/response/auth_response_dto.dart';
+import 'package:foody_api_client/dto/response/employee_user_response_dto.dart';
+import 'package:foody_api_client/foody_api_client.dart';
+import 'package:foody_api_client/utils/call_api.dart';
+import 'package:foody_api_client/utils/get_foody_dio.dart';
+import 'package:foody_api_client/utils/roles.dart';
 import 'package:foody_business_app/repository/interface/user_repository.dart';
 import 'package:foody_business_app/routing/constants.dart';
-import 'package:foody_business_app/utils/get_foody_dio.dart';
-import 'package:foody_business_app/utils/roles.dart';
+import 'package:foody_business_app/utils/get_token_interceptor.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../../models/user.dart';
-import '../../repository/interface/foody_api_repository.dart';
 import '../../routing/navigation_service.dart';
-import '../../utils/call_api.dart';
-import '../../utils/token_inteceptor.dart';
 import 'sign_in_event.dart';
 import 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final NavigationService _navigationService = NavigationService();
-  final FoodyApiRepository foodyApiRepository;
+  final FoodyApiClient foodyApiClient;
   final UserRepository userRepository;
 
-  SignInBloc({required this.foodyApiRepository, required this.userRepository})
+  SignInBloc({required this.foodyApiClient, required this.userRepository})
       : super(const SignInState.initial()) {
     on<LoginSubmit>(_onLoginSubmit, transformer: droppable());
     on<EmailChanged>(_onEmailChanged);
@@ -53,7 +53,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     int? result;
 
     await callApi<EmployeeUserResponseDto>(
-      api: foodyApiRepository.auth.getAuthenticatedUser,
+      api: foodyApiClient.auth.getAuthenticatedUser,
       onComplete: (response) => result = response.employerRestaurantId,
     );
 
@@ -62,12 +62,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   void _onLoginSubmit(LoginSubmit event, Emitter<SignInState> emit) async {
     if (_isFormValid(emit)) {
-      foodyApiRepository.dio = getFoodyDio(); // reset dio in case of 498
+      foodyApiClient.dio = getFoodyDio(); // reset dio in case of 498
 
       emit(state.copyWith(isLoading: true));
 
       await callApi<AuthResponseDto>(
-        api: () => foodyApiRepository.auth.login(UserLoginRequestDto(
+        api: () => foodyApiClient.auth.login(UserLoginRequestDto(
           email: state.email,
           password: state.password,
         )),
@@ -83,8 +83,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
             return;
           }
 
-          foodyApiRepository.dio = getFoodyDio(
-              tokenInterceptor: TokenInterceptor(
+          foodyApiClient.dio = getFoodyDio(
+              tokenInterceptor: getTokenInterceptor(
             token: response.accessToken,
             userRepository: userRepository,
           ));

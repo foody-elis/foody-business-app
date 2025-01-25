@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:foody_api_client/dto/response/order_response_dto.dart';
+import 'package:foody_api_client/utils/order_status.dart';
 import 'package:foody_business_app/bloc/orders/orders_bloc.dart';
 import 'package:foody_business_app/bloc/orders/orders_state.dart';
-import 'package:foody_business_app/dto/response/order_response_dto.dart';
 import 'package:foody_business_app/screens/orders/app_bar.dart';
 import 'package:foody_business_app/utils/animation/fade_in_right.dart';
-import 'package:foody_business_app/utils/order_status.dart';
 import 'package:foody_business_app/widgets/foody_card_order.dart';
 import 'package:foody_business_app/widgets/foody_empty_data.dart';
 
 import '../../bloc/orders/orders_event.dart';
-import '../../utils/show_snackbar.dart';
+import '../../widgets/utils/show_foody_snackbar.dart';
 
 class Orders extends HookWidget {
   const Orders({super.key});
@@ -46,7 +46,7 @@ class Orders extends HookWidget {
     return BlocConsumer<OrdersBloc, OrdersState>(
       listener: (context, state) {
         if (state.apiError != "") {
-          showSnackBar(context: context, msg: state.apiError);
+          showFoodySnackBar(context: context, msg: state.apiError);
         }
       },
       builder: (context, state) {
@@ -93,7 +93,7 @@ class Orders extends HookWidget {
                                     index: state.orders.length - i - 1,
                                   ));
 
-                              showSnackBar(
+                              showFoodySnackBar(
                                 context: context,
                                 msg:
                                     "Ordine #${order.id} contrassegnato come completato",

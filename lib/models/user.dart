@@ -1,6 +1,5 @@
+import 'package:foody_api_client/utils/roles.dart';
 import 'package:objectbox/objectbox.dart';
-
-import '../utils/roles.dart';
 
 @Entity()
 class User {

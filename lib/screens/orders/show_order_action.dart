@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../utils/show_foody_modal_bottom_sheet.dart';
+import '../../widgets/utils/show_foody_modal_bottom_sheet.dart';
 
 void showOrderActions({
   required BuildContext context,

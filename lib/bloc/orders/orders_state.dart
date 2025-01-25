@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:foody_business_app/dto/response/order_response_dto.dart';
+import 'package:foody_api_client/dto/response/order_response_dto.dart';
 
 class OrdersState extends Equatable {
   final List<OrderResponseDto> orders;

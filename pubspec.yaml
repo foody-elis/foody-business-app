@@ -55,6 +55,10 @@ dependencies:
   easy_stepper: ^0.8.5+1
   badges: ^3.1.2
   stomp_dart_client: ^2.1.1
+  foody_api_client:
+    git:
+      url: https://github.com/foody-elis/foody_api_client
+      ref: main
 
 dev_dependencies:
   flutter_test:

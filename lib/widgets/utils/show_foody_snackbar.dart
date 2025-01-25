@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void showSnackBar({
+void showFoodySnackBar({
   required BuildContext context,
   required String msg,
   SnackBarAction? action,

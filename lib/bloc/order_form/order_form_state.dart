@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:foody_business_app/dto/request/order_dish_request_dto.dart';
-import 'package:foody_business_app/dto/response/dish_response_dto.dart';
+import 'package:foody_api_client/dto/request/order_dish_request_dto.dart';
+import 'package:foody_api_client/dto/response/dish_response_dto.dart';
 
 class OrderFormState extends Equatable {
   final String tableCode;

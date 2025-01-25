@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:foody_api_client/dto/request/order_dish_request_dto.dart';
+import 'package:foody_api_client/dto/response/dish_response_dto.dart';
 import 'package:foody_business_app/bloc/order_form/order_form_bloc.dart';
 import 'package:foody_business_app/bloc/order_form/order_form_event.dart';
-import 'package:foody_business_app/dto/request/order_dish_request_dto.dart';
-import 'package:foody_business_app/dto/response/dish_response_dto.dart';
 import 'package:foody_business_app/routing/navigation_service.dart';
 import 'package:foody_business_app/widgets/foody_button.dart';
 import 'package:foody_business_app/widgets/foody_circular_image.dart';

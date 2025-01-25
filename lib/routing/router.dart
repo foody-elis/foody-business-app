@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foody_api_client/foody_api_client.dart';
 import 'package:foody_business_app/bloc/orders/orders_bloc.dart';
 import 'package:foody_business_app/bloc/sign_in/sign_in_bloc.dart';
-import 'package:foody_business_app/repository/interface/foody_api_repository.dart';
 import 'package:foody_business_app/repository/interface/user_repository.dart';
 import 'package:foody_business_app/routing/constants.dart';
 import 'package:foody_business_app/screens/order_completed.dart';
@@ -22,7 +22,7 @@ class Router {
         return CupertinoPageRoute(
           builder: (_) => BlocProvider<SignInBloc>(
             create: (context) => SignInBloc(
-              foodyApiRepository: context.read<FoodyApiRepository>(),
+              foodyApiClient: context.read<FoodyApiClient>(),
               userRepository: context.read<UserRepository>(),
             ),
             child: const SignIn(),
@@ -32,7 +32,7 @@ class Router {
         return CupertinoPageRoute(
           builder: (_) => BlocProvider<OrderFormBloc>(
             create: (context) => OrderFormBloc(
-              foodyApiRepository: context.read<FoodyApiRepository>(),
+              foodyApiClient: context.read<FoodyApiClient>(),
               userRepository: context.read<UserRepository>(),
             ),
             child: const OrderForm(),
@@ -46,7 +46,7 @@ class Router {
         return CupertinoPageRoute(
           builder: (_) => BlocProvider<OrdersBloc>(
             create: (context) => OrdersBloc(
-              foodyApiRepository: context.read<FoodyApiRepository>(),
+              foodyApiClient: context.read<FoodyApiClient>(),
               userRepository: context.read<UserRepository>(),
             ),
             child: const Orders(),

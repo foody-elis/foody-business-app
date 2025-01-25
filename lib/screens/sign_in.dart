@@ -8,9 +8,9 @@ import '../bloc/foody/foody_event.dart';
 import '../bloc/sign_in/sign_in_bloc.dart';
 import '../bloc/sign_in/sign_in_event.dart';
 import '../bloc/sign_in/sign_in_state.dart';
-import '../utils/show_snackbar.dart';
 import '../widgets/foody_button.dart';
 import '../widgets/foody_text_field.dart';
+import '../widgets/utils/show_foody_snackbar.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -20,7 +20,7 @@ class SignIn extends StatelessWidget {
     return BlocConsumer<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state.apiError != "") {
-          showSnackBar(context: context, msg: state.apiError);
+          showFoodySnackBar(context: context, msg: state.apiError);
         }
 
         context

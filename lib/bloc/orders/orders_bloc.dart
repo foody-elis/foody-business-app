@@ -1,20 +1,19 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foody_api_client/dto/response/order_response_dto.dart';
+import 'package:foody_api_client/foody_api_client.dart';
+import 'package:foody_api_client/utils/call_api.dart';
+import 'package:foody_api_client/utils/order_status.dart';
 import 'package:foody_business_app/bloc/orders/orders_event.dart';
 import 'package:foody_business_app/bloc/orders/orders_state.dart';
-import 'package:foody_business_app/dto/response/order_response_dto.dart';
 import 'package:foody_business_app/repository/interface/user_repository.dart';
 import 'package:foody_business_app/routing/constants.dart';
 import 'package:foody_business_app/routing/navigation_service.dart';
 import 'package:foody_business_app/utils/foody_stomp_client.dart';
-import 'package:foody_business_app/utils/order_status.dart';
 import 'package:foody_business_app/utils/websocket_topics.dart';
 
-import '../../repository/interface/foody_api_repository.dart';
-import '../../utils/call_api.dart';
-
 class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
-  final FoodyApiRepository foodyApiRepository;
+  final FoodyApiClient foodyApiClient;
   final UserRepository userRepository;
   final NavigationService _navigationService = NavigationService();
 
@@ -22,7 +21,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   late final FoodyStompClient _stompClient;
 
   OrdersBloc({
-    required this.foodyApiRepository,
+    required this.foodyApiClient,
     required this.userRepository,
   }) : super(OrdersState.initial()) {
     on<FetchOrders>(_onFetchOrders, transformer: droppable());
@@ -105,8 +104,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     emit(state.copyWith(isLoading: true));
 
     await callApi<List<OrderResponseDto>>(
-      api: () =>
-          foodyApiRepository.orders.getCurrentByRestaurant(_restaurantId),
+      api: () => foodyApiClient.orders.getCurrentByRestaurant(_restaurantId),
       onComplete: (orders) => emit(state.copyWith(orders: orders)),
       errorToEmit: (msg) => emit(state.copyWith(apiError: msg)),
     );
@@ -120,7 +118,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     emit(state.copyWith(isLoading: true));
 
     await callApi<OrderResponseDto>(
-      api: () => foodyApiRepository.orders.prepare(event.orderId),
+      api: () => foodyApiClient.orders.prepare(event.orderId),
       onComplete: (_) => add(WsOrderPreparing(orderId: event.orderId)),
       errorToEmit: (msg) => emit(state.copyWith(apiError: msg)),
     );
@@ -134,7 +132,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     emit(state.copyWith(isLoading: true));
 
     await callApi<OrderResponseDto>(
-      api: () => foodyApiRepository.orders.complete(event.orderId),
+      api: () => foodyApiClient.orders.complete(event.orderId),
       onComplete: (_) {
         add(WsOrderCompleted(orderId: event.orderId));
       },
