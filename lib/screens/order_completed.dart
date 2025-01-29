@@ -25,7 +25,7 @@ class OrderCompleted extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () => NavigationService().resetToScreen(orderFormRoute),
-            icon: const Icon(PhosphorIconsLight.x),
+            icon: const Icon(PhosphorIconsRegular.x),
           )
         ],
       ),
