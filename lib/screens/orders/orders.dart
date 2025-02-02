@@ -24,6 +24,7 @@ class Orders extends HookWidget {
     useEffect(() {
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
       ]);
 
       return () => SystemChrome.setPreferredOrientations([

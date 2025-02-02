@@ -27,13 +27,6 @@ class OrderFormSummaryStep extends HookWidget {
 
     return BlocBuilder<OrderFormBloc, OrderFormState>(
       builder: (context, state) {
-        double totalAmount = 0;
-
-        for (final orderDish in state.orderDishes) {
-          totalAmount += orderDish.quantity *
-              state.dishes.where((d) => d.id == orderDish.dishId).single.price;
-        }
-
         return Stack(
           clipBehavior: Clip.none,
           fit: StackFit.expand,
