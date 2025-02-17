@@ -51,8 +51,6 @@ With its real-time synchronization and user-friendly design, Foody Business App 
 
 ## Cook
 
-### Sign in
-
 ### Orders
 
 #### View orders
