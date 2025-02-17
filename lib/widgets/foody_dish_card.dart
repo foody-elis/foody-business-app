@@ -31,6 +31,7 @@ class FoodyDishCard extends StatelessWidget {
             ? showFoodyModalBottomSheet(
                 context: context,
                 draggable: true,
+                draggableInitialChildSize: 0.8,
                 child: BlocProvider<OrderFormBloc>.value(
                   value: context.read<OrderFormBloc>(),
                   child: DishDetails(dish: dish, canAddToCart: true),

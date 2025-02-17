@@ -7,15 +7,17 @@ Future<T?> showFoodyModalBottomSheet<T>({
   required Widget child,
   int? maxHeightPercentage,
   bool draggable = false,
+  double draggableInitialChildSize = 0.6,
 }) =>
     showModalBottomSheet<T>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       builder: (context) => FoodyBottomSheetLayout(
         context: context,
         maxHeightPercentage: maxHeightPercentage,
         draggable: draggable,
+        draggableInitialChildSize: draggableInitialChildSize,
         child: child,
       ),
     );
@@ -26,12 +28,13 @@ Future<T?> showFoodyModalBottomSheetWithBloc<T,
   required Widget child,
   int? maxHeightPercentage,
   bool draggable = false,
+  double draggableInitialChildSize = 0.6,
   required B Function(BuildContext) createBloc,
 }) =>
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       builder: (context) {
         return BlocProvider<B>(
           create: (context) => createBloc(context),
@@ -39,6 +42,7 @@ Future<T?> showFoodyModalBottomSheetWithBloc<T,
             context: context,
             maxHeightPercentage: maxHeightPercentage,
             draggable: draggable,
+            draggableInitialChildSize: draggableInitialChildSize,
             child: child,
           ),
         );

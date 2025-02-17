@@ -32,6 +32,7 @@ class SignIn extends StatelessWidget {
           canPop: !state.isLoading,
           child: Scaffold(
             resizeToAvoidBottomInset: false,
+            appBar: AppBar(toolbarHeight: 0),
             body: Padding(
               padding: const EdgeInsets.all(20),
               child: Stack(

@@ -7,20 +7,22 @@ class FoodyBottomSheetLayout extends StatelessWidget {
     required this.child,
     this.maxHeightPercentage,
     this.draggable = false,
+    this.draggableInitialChildSize = 0.6,
   });
 
   final BuildContext context;
   final Widget child;
   final int? maxHeightPercentage;
   final bool draggable;
+  final double draggableInitialChildSize;
 
   @override
   Widget build(BuildContext context) {
-    Widget modalContent() => Padding(
-          padding: const EdgeInsets.only(
+    Widget modalContent([double? bottomPadding]) => Padding(
+          padding: EdgeInsets.only(
             left: 16,
             right: 16,
-            bottom: 32,
+            bottom: bottomPadding ?? 32,
             top: 16,
           ),
           child: Column(
@@ -45,7 +47,7 @@ class FoodyBottomSheetLayout extends StatelessWidget {
 
     Widget draggableSheet() => DraggableScrollableSheet(
           expand: false,
-          initialChildSize: 0.6,
+          initialChildSize: draggableInitialChildSize,
           builder: (context, scrollController) {
             return SingleChildScrollView(
               controller: scrollController,
@@ -57,7 +59,12 @@ class FoodyBottomSheetLayout extends StatelessWidget {
     return draggable
         ? draggableSheet()
         : maxHeightPercentage == null
-            ? modalContent()
+            ? SafeArea(
+                top: false,
+                child: SingleChildScrollView(
+                  child: modalContent(MediaQuery.of(context).viewInsets.bottom),
+                ),
+              )
             : SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height *
