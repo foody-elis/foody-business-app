@@ -7,16 +7,15 @@
     - [What is Foody Business App](#what-is-foody-business-app)
 - [Use cases](#use-cases)
     - [Waiter](#waiter)
-        - [Sign in](#sign-in)
         - [Create order](#create-order)
     - [Cook](#cook)
-        - [Sign in](#sign-in)
         - [Orders](#orders)
             - [View orders](#view-orders)
             - [View order dishes](#view-order-dishes)
             - [Set as preparing](#set-as-preparing)
             - [Set as completed](#set-as-completed)
     - [Common Cases](#common-cases)
+        - [Sign in](#sign-in)
         - [Logout](#logout)
 
 # Description
@@ -47,16 +46,12 @@ With its real-time synchronization and user-friendly design, Foody Business App 
 
 ## Waiter
 
-### Sign in
-<img loading="lazy" height="500" src="resources/use_cases/waiter/sign_in.gif" />
-
 ### Create order
 <img loading="lazy" height="500" src="resources/use_cases/waiter/create_order.gif" />
 
 ## Cook
 
 ### Sign in
-<img loading="lazy" height="500" src="resources/use_cases/cook/sign_in.gif" />
 
 ### Orders
 
@@ -74,6 +69,10 @@ With its real-time synchronization and user-friendly design, Foody Business App 
 <img loading="lazy" height="500" src="resources/use_cases/cook/orders/set_as_completed_2.gif" />
 
 ## Common Cases
+
+### Sign in
+<img loading="lazy" height="500" src="resources/use_cases/waiter/sign_in.gif" />
+<img loading="lazy" height="500" src="resources/use_cases/cook/sign_in.gif" />
 
 ### Logout
 <img loading="lazy" height="500" src="resources/use_cases/waiter/logout.gif" />
