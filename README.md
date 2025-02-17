@@ -54,17 +54,17 @@ With its real-time synchronization and user-friendly design, Foody Business App 
 ### Orders
 
 #### View orders
-<img loading="lazy" height="500" src="resources/use_cases/cook/orders/view_orders.gif" />
+<img loading="lazy" width="500" src="resources/use_cases/cook/orders/view_orders.gif" />
 
 #### View order dishes
-<img loading="lazy" height="500" src="resources/use_cases/cook/orders/view_order_dishes.gif" />
+<img loading="lazy" width="500" src="resources/use_cases/cook/orders/view_order_dishes.gif" />
 
 #### Set as preparing
-<img loading="lazy" height="500" src="resources/use_cases/cook/orders/set_as_preparing.gif" />
+<img loading="lazy" width="500" src="resources/use_cases/cook/orders/set_as_preparing.gif" />
 
 #### Set as completed
-<img loading="lazy" height="500" src="resources/use_cases/cook/orders/set_as_completed.gif" />
-<img loading="lazy" height="500" src="resources/use_cases/cook/orders/set_as_completed_2.gif" />
+<img loading="lazy" width="500" src="resources/use_cases/cook/orders/set_as_completed.gif" />
+<img loading="lazy" width="500" src="resources/use_cases/cook/orders/set_as_completed_2.gif" />
 
 ## Common Cases
 
