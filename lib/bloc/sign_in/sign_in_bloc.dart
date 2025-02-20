@@ -53,7 +53,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     int? result;
 
     await callApi<EmployeeUserResponseDto>(
-      api: foodyApiClient.auth.getAuthenticatedUser,
+      api: foodyApiClient.auth.getAuthenticatedEmployee,
       onComplete: (response) => result = response.employerRestaurantId,
     );
 

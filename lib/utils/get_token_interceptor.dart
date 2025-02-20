@@ -1,4 +1,4 @@
-import 'package:foody_api_client/utils/token_inteceptor.dart';
+import 'package:foody_api_client/utils/token_interceptor.dart';
 
 import '../repository/interface/user_repository.dart';
 import '../routing/constants.dart';

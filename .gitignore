@@ -45,3 +45,4 @@ app.*.map.json
 /android/app/release
 
 lib/object_box/objectbox.g.dart
+android/app/.cxx/
